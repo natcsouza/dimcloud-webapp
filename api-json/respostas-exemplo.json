@@ -1,0 +1,12 @@
+{
+  "GET /api/correntistas": [
+    { "id": 1, "nome": "Steve Jobs", "cpf": "12345678901", "email": "steve.jobs@dimdim.com.br",
+      "telefone": "(11) 99999-0001", "dataCadastro": "2026-10-05T10:29:41.123", "saldo": 1500.00 }
+  ],
+  "GET /api/transacoes": [
+    { "id": 1, "tipo": "DEPOSITO", "valor": 1500.00, "descricao": "Depósito inicial",
+      "dataTransacao": "2026-10-05T10:30:00", "correntistaId": 1, "correntistaNome": "Steve Jobs" }
+  ],
+  "DELETE /api/transacoes/1": "HTTP 204 No Content",
+  "DELETE /api/correntistas/1": "HTTP 204 No Content (apaga também as transações do correntista)"
+}

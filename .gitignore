@@ -1,0 +1,10 @@
+target/
+*.jar
+app.zip
+segredos.local.env
+*.local.env
+.env
+.idea/
+.vscode/
+*.iml
+*.log

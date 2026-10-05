@@ -1,0 +1,7 @@
+{
+  "role": { "name": "dimcloud-webapp" },
+  "instrumentation": {
+    "jdbc": { "masking": { "enabled": false } }
+  },
+  "preview": { "captureLogbackMarker": true }
+}

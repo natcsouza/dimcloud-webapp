@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="~{fragments/layout :: head('Correntista')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: nav('correntistas')}"></header>
+<main class="conteudo estreito">
+    <h1 th:text="${correntista.id == null} ? 'Novo correntista' : 'Editar correntista #' + ${correntista.id}">Correntista</h1>
+    <form th:action="@{/correntistas/salvar}" th:object="${correntista}" method="post" class="form">
+        <input type="hidden" th:field="*{id}">
+        <label>Nome
+            <input type="text" th:field="*{nome}" maxlength="100" required>
+            <span class="err" th:errors="*{nome}"></span>
+        </label>
+        <label>CPF (só números)
+            <input type="text" th:field="*{cpf}" maxlength="11" inputmode="numeric" pattern="\d{11}" required>
+            <span class="err" th:errors="*{cpf}"></span>
+        </label>
+        <label>E-mail
+            <input type="email" th:field="*{email}" maxlength="120" required>
+            <span class="err" th:errors="*{email}"></span>
+        </label>
+        <label>Telefone
+            <input type="text" th:field="*{telefone}" maxlength="20">
+        </label>
+        <div class="acoes">
+            <button type="submit" class="btn">Salvar</button>
+            <a class="btn sec" th:href="@{/correntistas}">Cancelar</a>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

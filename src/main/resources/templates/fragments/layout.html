@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' · DimDim'">DimDim</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:fragment="nav(ativo)" class="topo">
+    <div class="topo-in">
+        <a th:href="@{/}" class="marca"><span class="moeda">dim<br>dim</span> DimDim <small>by DimCloud</small></a>
+        <nav>
+            <a th:href="@{/}" th:classappend="${ativo == 'home'} ? 'on'">Início</a>
+            <a th:href="@{/correntistas}" th:classappend="${ativo == 'correntistas'} ? 'on'">Correntistas</a>
+            <a th:href="@{/transacoes}" th:classappend="${ativo == 'transacoes'} ? 'on'">Transações</a>
+        </nav>
+    </div>
+</header>
+
+<div th:fragment="alertas">
+    <div class="alerta ok" th:if="${ok}" th:text="${ok}"></div>
+    <div class="alerta erro" th:if="${erro}" th:text="${erro}"></div>
+</div>
+
+<footer th:fragment="rodape" class="rodape">
+    DimDim · Web App Java no Azure App Service + Azure SQL Database + Application Insights · Grupo DimCloud
+</footer>
+</body>
+</html>

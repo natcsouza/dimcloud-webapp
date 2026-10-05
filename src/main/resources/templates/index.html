@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="~{fragments/layout :: head('Início')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: nav('home')}"></header>
+<main class="conteudo">
+    <section class="hero">
+        <h1>Banco digital DimDim</h1>
+        <p>Cadastro de correntistas e movimentações (depósito, saque e Pix) gravados no Azure SQL Database.</p>
+        <div class="acoes">
+            <a class="btn" th:href="@{/correntistas/novo}">+ Novo correntista</a>
+            <a class="btn sec" th:href="@{/transacoes/nova}">+ Nova transação</a>
+        </div>
+    </section>
+
+    <section class="cards">
+        <div class="card"><span>Correntistas</span><strong th:text="${totalCorrentistas}">0</strong></div>
+        <div class="card"><span>Transações</span><strong th:text="${totalTransacoes}">0</strong></div>
+        <div class="card"><span>Saldo total</span>
+            <strong th:text="${'R$ ' + #numbers.formatDecimal(saldoTotal, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</strong></div>
+    </section>
+
+    <h2>Últimas transações</h2>
+    <p class="vazio" th:if="${#lists.isEmpty(ultimas)}">Nenhuma transação ainda.</p>
+    <div class="tabela-wrap" th:unless="${#lists.isEmpty(ultimas)}">
+        <table>
+            <thead><tr><th>Data</th><th>Correntista</th><th>Tipo</th><th class="num">Valor</th></tr></thead>
+            <tbody>
+            <tr th:each="t : ${ultimas}">
+                <td th:text="${#temporals.format(t.dataTransacao, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${t.correntista.nome}"></td>
+                <td><span class="tag" th:classappend="${t.tipo.credito} ? 'cred' : 'deb'" th:text="${t.tipo.descricao}"></span></td>
+                <td class="num" th:text="${(t.tipo.credito ? '+ ' : '- ') + 'R$ ' + #numbers.formatDecimal(t.valor, 1, 'POINT', 2, 'COMMA')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>

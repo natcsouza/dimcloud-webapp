@@ -1,0 +1,7 @@
+{
+  "correntistaId": 1,
+  "tipo": "DEPOSITO",
+  "valor": 1500.00,
+  "descricao": "Depósito inicial",
+  "dataTransacao": "2026-10-05T10:30:00"
+}

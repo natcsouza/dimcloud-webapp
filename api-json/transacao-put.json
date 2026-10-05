@@ -1,0 +1,7 @@
+{
+  "correntistaId": 1,
+  "tipo": "PIX_RECEBIDO",
+  "valor": 2500.50,
+  "descricao": "Pix recebido - salário",
+  "dataTransacao": "2026-10-05T11:00:00"
+}

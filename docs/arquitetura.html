@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Arquitetura DimCloud</title>
+<style>
+body{margin:0;background:#fff;font-family:"Segoe UI",Arial,sans-serif}
+svg text{font-family:"Segoe UI",Arial,sans-serif}
+</style></head><body>
+<svg width="1400" height="780" viewBox="0 0 1400 780" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#333"/></marker>
+    <marker id="p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#7a3fd1"/></marker>
+  </defs>
+  <text x="40" y="48" font-size="28" font-weight="700" fill="#222">DimDim · Arquitetura macro da solução (Grupo DimCloud)</text>
+  <text x="40" y="76" font-size="15" fill="#666">Web App Java (PaaS) + Azure SQL Database (PaaS) + Application Insights · região Mexico Central · deploy automatizado com Azure CLI</text>
+
+  <!-- Usuários -->
+  <rect x="40" y="250" width="200" height="150" rx="14" fill="#fff8c4" stroke="#d4b800" stroke-width="2"/>
+  <text x="140" y="300" text-anchor="middle" font-size="40">👥</text>
+  <text x="140" y="340" text-anchor="middle" font-size="17" font-weight="700">Clientes DimDim</text>
+  <text x="140" y="362" text-anchor="middle" font-size="13" fill="#555">Navegador (front-end)</text>
+  <text x="140" y="380" text-anchor="middle" font-size="13" fill="#555">ou Postman/curl (API)</text>
+
+  <!-- Dev -->
+  <rect x="40" y="520" width="200" height="170" rx="14" fill="#eef3ff" stroke="#5a7bd8" stroke-width="2"/>
+  <text x="140" y="566" text-anchor="middle" font-size="36">💻</text>
+  <text x="140" y="602" text-anchor="middle" font-size="17" font-weight="700">Equipe DimCloud</text>
+  <text x="140" y="624" text-anchor="middle" font-size="13" fill="#555">Azure CLI (scripts/)</text>
+  <text x="140" y="642" text-anchor="middle" font-size="13" fill="#555">Maven · sqlcmd</text>
+  <text x="140" y="660" text-anchor="middle" font-size="13" fill="#555">GitHub (código-fonte)</text>
+
+  <!-- Azure boundary -->
+  <rect x="300" y="110" width="1060" height="630" rx="20" fill="#f3f8fd" stroke="#0078d4" stroke-width="2.5" stroke-dasharray="10 6"/>
+  <text x="325" y="145" font-size="19" font-weight="700" fill="#0078d4">Microsoft Azure · Assinatura Azure for Students</text>
+  <rect x="330" y="165" width="1000" height="555" rx="16" fill="none" stroke="#7aa7d6" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="350" y="192" font-size="14" fill="#336" font-weight="600">Resource Group: rg-dimcloud-webapp</text>
+
+  <!-- App Service -->
+  <rect x="380" y="220" width="400" height="230" rx="14" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+  <rect x="380" y="220" width="400" height="44" rx="14" fill="#0078d4"/>
+  <rect x="380" y="250" width="400" height="14" fill="#0078d4"/>
+  <text x="580" y="249" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">Azure App Service (Web App)</text>
+  <text x="400" y="292" font-size="14" fill="#333">plan-dimcloud · Linux · B1</text>
+  <text x="400" y="314" font-size="14" fill="#333" font-weight="700">app-dimcloud-rm564099</text>
+  <rect x="400" y="330" width="360" height="104" rx="10" fill="#f0f6ff" stroke="#9cc2ef"/>
+  <text x="415" y="354" font-size="14" font-weight="700" fill="#0b4a8b">Java 21 · Spring Boot 3.5</text>
+  <text x="415" y="376" font-size="13" fill="#333">Front-end Thymeleaf (telas CRUD)</text>
+  <text x="415" y="396" font-size="13" fill="#333">API REST /api/correntistas · /api/transacoes</text>
+  <text x="415" y="416" font-size="13" fill="#333">Spring Data JPA + driver mssql-jdbc</text>
+
+  <!-- SQL -->
+  <rect x="900" y="220" width="400" height="230" rx="14" fill="#fff" stroke="#e8770e" stroke-width="2"/>
+  <rect x="900" y="220" width="400" height="44" rx="14" fill="#e8770e"/>
+  <rect x="900" y="250" width="400" height="14" fill="#e8770e"/>
+  <text x="1100" y="249" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">Azure SQL Database (PaaS)</text>
+  <text x="920" y="292" font-size="14" fill="#333">Servidor: sql-dimcloud-rm564099</text>
+  <text x="920" y="314" font-size="14" fill="#333" font-weight="700">Banco: dimclouddb (Basic, 5 DTU)</text>
+  <rect x="920" y="330" width="170" height="80" rx="8" fill="#fff4e8" stroke="#f0b47a"/>
+  <text x="1005" y="360" text-anchor="middle" font-size="13" font-weight="700">TB_CORRENTISTA</text>
+  <text x="1005" y="382" text-anchor="middle" font-size="12" fill="#555">PK ID_CORRENTISTA</text>
+  <rect x="1110" y="330" width="170" height="80" rx="8" fill="#fff4e8" stroke="#f0b47a"/>
+  <text x="1195" y="360" text-anchor="middle" font-size="13" font-weight="700">TB_TRANSACAO</text>
+  <text x="1195" y="382" text-anchor="middle" font-size="12" fill="#555">FK ID_CORRENTISTA</text>
+  <line x1="1090" y1="370" x2="1110" y2="370" stroke="#333" stroke-width="2"/>
+  <text x="1100" y="430" text-anchor="middle" font-size="12" fill="#555">1 : N · Firewall: serviços Azure + IP da equipe</text>
+
+  <!-- App Insights -->
+  <rect x="380" y="530" width="400" height="160" rx="14" fill="#fff" stroke="#7a3fd1" stroke-width="2"/>
+  <rect x="380" y="530" width="400" height="44" rx="14" fill="#7a3fd1"/>
+  <rect x="380" y="560" width="400" height="14" fill="#7a3fd1"/>
+  <text x="580" y="559" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">Application Insights</text>
+  <text x="400" y="602" font-size="14" fill="#333" font-weight="700">appi-dimcloud</text>
+  <text x="400" y="624" font-size="13" fill="#333">Agente Java 3.x: requests, dependências SQL</text>
+  <text x="400" y="644" font-size="13" fill="#333">(cada INSERT/SELECT/UPDATE/DELETE), falhas,</text>
+  <text x="400" y="664" font-size="13" fill="#333">Live Metrics, Application Map, desempenho</text>
+
+  <!-- Log Analytics -->
+  <rect x="900" y="530" width="400" height="160" rx="14" fill="#fff" stroke="#3b8f5a" stroke-width="2"/>
+  <rect x="900" y="530" width="400" height="44" rx="14" fill="#3b8f5a"/>
+  <rect x="900" y="560" width="400" height="14" fill="#3b8f5a"/>
+  <text x="1100" y="559" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">Log Analytics Workspace</text>
+  <text x="920" y="602" font-size="14" fill="#333" font-weight="700">law-dimcloud</text>
+  <text x="920" y="624" font-size="13" fill="#333">Armazena a telemetria do App Insights</text>
+  <text x="920" y="644" font-size="13" fill="#333">+ diagnóstico do Azure SQL (SQLInsights,</text>
+  <text x="920" y="664" font-size="13" fill="#333">Query Store, erros, métricas de DTU)</text>
+
+  <!-- arrows -->
+  <line x1="240" y1="325" x2="376" y2="325" stroke="#333" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="268" y="315" text-anchor="middle" font-size="12" fill="#333">HTTPS</text>
+  <line x1="780" y1="335" x2="896" y2="335" stroke="#333" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="838" y="325" text-anchor="middle" font-size="12" fill="#333">JDBC/TLS</text>
+  <text x="838" y="352" text-anchor="middle" font-size="12" fill="#333">1433</text>
+  <line x1="580" y1="450" x2="580" y2="526" stroke="#7a3fd1" stroke-width="2.5" marker-end="url(#p)"/>
+  <text x="590" y="494" font-size="12" fill="#7a3fd1">telemetria</text>
+  <line x1="780" y1="610" x2="896" y2="610" stroke="#7a3fd1" stroke-width="2.5" marker-end="url(#p)"/>
+  <line x1="1100" y1="450" x2="1100" y2="526" stroke="#3b8f5a" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="1110" y="494" font-size="12" fill="#3b8f5a">diagnostic settings</text>
+  <path d="M240,600 C300,600 300,420 376,420" fill="none" stroke="#5a7bd8" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#a)"/>
+  <text x="60" y="470" font-size="13" fill="#5a7bd8">az webapp deploy (jar) →</text>
+  
+</svg>
+</body></html>

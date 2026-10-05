@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="~{fragments/layout :: head('Transação')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: nav('transacoes')}"></header>
+<main class="conteudo estreito">
+    <h1 th:text="${transacao.id == null} ? 'Nova transação' : 'Editar transação #' + ${transacao.id}">Transação</h1>
+
+    <div class="alerta erro" th:if="${#lists.isEmpty(correntistas)}">
+        Cadastre um correntista antes de lançar transações. <a th:href="@{/correntistas/novo}">Cadastrar</a>
+    </div>
+
+    <form th:action="@{/transacoes/salvar}" th:object="${transacao}" method="post" class="form">
+        <input type="hidden" th:field="*{id}">
+        <label>Correntista
+            <select th:field="*{correntista}" required>
+                <option value="">Selecione...</option>
+                <option th:each="c : ${correntistas}" th:value="${c.id}" th:text="${c.nome + ' (' + c.cpf + ')'}"></option>
+            </select>
+            <span class="err" th:errors="*{correntista}"></span>
+        </label>
+        <label>Tipo
+            <select th:field="*{tipo}" required>
+                <option value="">Selecione...</option>
+                <option th:each="tp : ${tipos}" th:value="${tp}" th:text="${tp.descricao}"></option>
+            </select>
+            <span class="err" th:errors="*{tipo}"></span>
+        </label>
+        <label>Valor (R$)
+            <input type="number" th:field="*{valor}" step="0.01" min="0.01" required>
+            <span class="err" th:errors="*{valor}"></span>
+        </label>
+        <label>Descrição
+            <input type="text" th:field="*{descricao}" maxlength="150">
+        </label>
+        <label>Data e hora
+            <input type="datetime-local" th:field="*{dataTransacao}" required>
+            <span class="err" th:errors="*{dataTransacao}"></span>
+        </label>
+        <div class="acoes">
+            <button type="submit" class="btn">Salvar</button>
+            <a class="btn sec" th:href="@{/transacoes}">Cancelar</a>
+        </div>
+    </form>
+</main>
+<footer th:replace="~{fragments/layout :: rodape}"></footer>
+</body>
+</html>
