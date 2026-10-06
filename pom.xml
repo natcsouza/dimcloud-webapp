@@ -19,7 +19,7 @@
 
     <properties>
         <java.version>17</java.version> <!-- bytecode 17: compila no JDK 17 ou 21 (Cloud Shell) e roda no Java 21 do App Service -->
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
     </properties>
 
     <dependencies>
