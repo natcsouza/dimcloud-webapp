@@ -10,10 +10,11 @@ cd "$(dirname "$0")"
 SQL_ADMIN_PASSWORD="nao-usada" source ./00-variaveis.sh
 az extension add --name application-insights --only-show-errors 2>/dev/null || true
 
+# Consulta pelo Azure Resource Manager (az rest): funciona também no Cloud Shell,
+# onde o "az monitor app-insights query" falha com token de MSI.
+AI_ID=$(az monitor app-insights component show -g "$RG" --app "$APPINSIGHTS" --query id -o tsv)
 kql() {
-  az monitor app-insights query -g "$RG" --app "$APPINSIGHTS" --offset 2h \
-    --analytics-query "$1" \
-    --query "tables[0].rows" -o tsv
+  az rest --method post     --url "https://management.azure.com${AI_ID}/query?api-version=2018-04-20&timespan=PT2H"     --body "$(printf '{"query": "%s"}' "$1")"     --query "tables[0].rows" -o tsv
 }
 
 echo "== Application Insights: requisições por rota (últimas 2h)"
@@ -25,7 +26,7 @@ kql "dependencies | where type == 'SQL' | project timestamp, target, comando=sub
 
 echo
 echo "== Application Insights: comandos SQL por tipo"
-kql "dependencies | where type == 'SQL' | extend op=toupper(extract(@'^\s*(\w+)', 1, data)) | summarize qtd=count() by op"
+kql "dependencies | where type == 'SQL' | extend op=toupper(tostring(split(trim_start(' ', data), ' ')[0])) | summarize qtd=count() by op"
 
 echo
 echo "== Azure SQL Database: métricas da última hora (Metrics do banco)"
