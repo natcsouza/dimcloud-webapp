@@ -13,8 +13,8 @@ DevOps Tools & Cloud Computing, FIAP. Prof. João Menk
 | Otávio Ferreira | RM565960 |
 | Rodrigo Carvalho | RM565162 |
 
-- **Aplicação na nuvem:** https://app-dimcloud-rm564099.azurewebsites.net
-- **Vídeo com as evidências:** _(link do vídeo no PDF de entrega)_
+- **Aplicação na nuvem:** https://app-dimcloud-rm564099n.azurewebsites.net
+- **Vídeo com as evidências:** https://github.com/natcsouza/dimcloud-webapp/blob/main/video/DimCloud_webapp_video.webm
 
 ---
 
