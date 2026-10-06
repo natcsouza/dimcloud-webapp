@@ -23,9 +23,13 @@ az sql server create \
   --name "$SQL_SERVER" --resource-group "$RG" --location "$LOCATION" \
   --admin-user "$SQL_ADMIN" --admin-password "$SQL_ADMIN_PASSWORD" -o table
 
-az sql db create \
-  --resource-group "$RG" --server "$SQL_SERVER" --name "$SQL_DB" \
-  --edition Basic --capacity 5 --backup-storage-redundancy Local -o table
+# o servidor recém-criado pode demorar alguns segundos para "aparecer": tenta de novo
+for tentativa in 1 2 3 4 5 6; do
+  az sql db create \
+    --resource-group "$RG" --server "$SQL_SERVER" --name "$SQL_DB" \
+    --edition Basic --capacity 5 --backup-storage-redundancy Local -o table && break
+  echo "   servidor ainda propagando, nova tentativa em 20s ($tentativa/6)"; sleep 20
+done
 
 echo ">> Firewall: libera serviços da Azure (o Web App) e o IP desta máquina (DDL e consultas)"
 az sql server firewall-rule create \

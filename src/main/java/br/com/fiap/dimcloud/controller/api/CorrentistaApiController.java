@@ -38,7 +38,7 @@ public class CorrentistaApiController {
     @GetMapping("/{id}/transacoes")
     public List<Transacao> extrato(@PathVariable Long id) {
         buscar(id);
-        return transacoes.findByCorrentistaIdOrderByDataTransacaoDesc(id);
+        return transacoes.findByCorrentista_IdOrderByDataTransacaoDesc(id);
     }
 
     @PostMapping

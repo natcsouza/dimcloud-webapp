@@ -109,7 +109,7 @@ Os nomes dos recursos ficam em `scripts/00-variaveis.sh`. Como SQL Server e Web 
 mundo, eles levam o RM. Para usar o seu RM:
 ```bash
 export RM=rm123456                 # seu RM
-export LOCATION=mexicocentral      # a Azure for Students da FIAP bloqueia brazilsouth
+export LOCATION=canadacentral          # use uma região permitida pela policy da sua assinatura (az policy assignment list)
 export SQL_ADMIN_PASSWORD='<senha forte>'   # maiúscula, minúscula, número e símbolo
 ```
 > A senha **não** está em nenhum arquivo do repositório. Ela vai direto para as App Settings do Web App.

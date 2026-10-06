@@ -12,5 +12,5 @@ public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
     List<Transacao> findAllByOrderByDataTransacaoDesc();
 
     @EntityGraph(attributePaths = "correntista")
-    List<Transacao> findByCorrentistaIdOrderByDataTransacaoDesc(Long correntistaId);
+    List<Transacao> findByCorrentista_IdOrderByDataTransacaoDesc(Long correntistaId);
 }

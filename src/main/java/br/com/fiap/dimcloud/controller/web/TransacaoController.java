@@ -30,7 +30,7 @@ public class TransacaoController {
     public String listar(@RequestParam(required = false) Long correntista, Model model) {
         model.addAttribute("transacoes", correntista == null
                 ? repo.findAllByOrderByDataTransacaoDesc()
-                : repo.findByCorrentistaIdOrderByDataTransacaoDesc(correntista));
+                : repo.findByCorrentista_IdOrderByDataTransacaoDesc(correntista));
         model.addAttribute("correntistas", correntistas.findAllByOrderByNomeAsc());
         model.addAttribute("filtro", correntista);
         return "transacoes/lista";

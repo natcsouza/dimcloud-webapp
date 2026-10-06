@@ -6,8 +6,11 @@
 # levam o RM de quem cria os recursos (troque com: export RM=rmXXXXXX).
 # =====================================================================
 
+# Git Bash (Windows) não deve converter IDs "/subscriptions/..." em caminhos
+export MSYS_NO_PATHCONV=1
+
 export RM="${RM:-rm564099}"
-export LOCATION="${LOCATION:-mexicocentral}"   # Azure for Students (FIAP) bloqueia brazilsouth
+export LOCATION="${LOCATION:-canadacentral}"   # Azure for Students (FIAP) bloqueia brazilsouth; veja a policy de regiões
 
 export RG="rg-dimcloud-webapp"
 export SQL_SERVER="sql-dimcloud-${RM}"
