@@ -7,6 +7,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 SQL_ADMIN_PASSWORD="nao-usada" source ./scripts/00-variaveis.sh
+unset MSYS_NO_PATHCONV   # aqui não tem az; no Git Bash o curl precisa da conversão para /dev/null
 BASE="${BASE:-https://${WEBAPP}.azurewebsites.net}"
 H='Content-Type: application/json'
 

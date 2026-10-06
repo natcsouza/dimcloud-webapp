@@ -8,7 +8,8 @@ cd "$(dirname "$0")/.."
 SQL_ADMIN_PASSWORD="nao-usada-no-deploy" source ./scripts/00-variaveis.sh
 
 echo ">> mvn package"
-env -u MSYS_NO_PATHCONV mvn -q -DskipTests clean package   # (mvn no Git Bash precisa da conversão de caminhos)
+# (env -u: no Git Bash, a conversão de caminho desligada para o az quebra o classpath do Maven)
+env -u MSYS_NO_PATHCONV mvn -q -DskipTests clean package
 
 echo ">> az webapp deploy (jar)"
 az webapp deploy \

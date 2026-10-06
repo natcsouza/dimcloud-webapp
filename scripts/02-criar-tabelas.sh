@@ -6,6 +6,8 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 source ./00-variaveis.sh
+garantir_sqlcmd
+liberar_meu_ip
 
 sqlcmd -S "tcp:${SQL_SERVER}.database.windows.net,1433" -d "$SQL_DB" \
   -U "$SQL_ADMIN" -P "$SQL_ADMIN_PASSWORD" -N -l 60 -i ddl.sql

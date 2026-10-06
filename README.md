@@ -66,7 +66,9 @@ Log Analytics, que também recebe o diagnóstico do banco. A equipe cria tudo e 
 │   ├── 02-criar-tabelas.sh      ← roda o DDL no Azure SQL (sqlcmd)
 │   ├── 03-deploy.sh             ← build Maven + az webapp deploy
 │   ├── 04-testes-api.sh         ← CRUD completo pela API (curl)
-│   └── 05-remover-recursos.sh   ← apaga tudo
+│   ├── 05-remover-recursos.sh   ← apaga tudo
+│   ├── 06-monitoramento.sh      ← App Insights (requests + SQL) e métricas do banco pelo CLI
+│   └── consultar.sh             ← SELECT nas tabelas (prova da persistência após cada operação)
 └── src/main/java/br/com/fiap/dimcloud/
     ├── model/                   ← Correntista, Transacao, TipoTransacao (JPA)
     ├── repository/              ← Spring Data JPA
@@ -92,9 +94,9 @@ Log Analytics, que também recebe o diagnóstico do banco. A equipe cria tudo e 
 ### 5.1 Pré-requisitos
 - Conta Azure com assinatura ativa (usamos a **Azure for Students**)
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) 2.60+
-- **Java 21+** e **Maven 3.9+** (para gerar o `.jar`)
+- **Java 17+** e **Maven 3.9+** (para gerar o `.jar`; o bytecode é 17 e roda no Java 21 do App Service)
 - **sqlcmd** ([download](https://learn.microsoft.com/sql/tools/sqlcmd/sqlcmd-utility)), ou use o *Query editor* do portal
-- Terminal **bash** (Git Bash no Windows, ou Azure Cloud Shell)
+- Terminal **bash**: o **Azure Cloud Shell** já tem Azure CLI, Java 17, Maven e git (o `sqlcmd` é instalado sozinho pelos scripts). No Git Bash do Windows também funciona
 
 ### 5.2 Clonar e fazer login
 ```bash
@@ -109,7 +111,7 @@ Os nomes dos recursos ficam em `scripts/00-variaveis.sh`. Como SQL Server e Web 
 mundo, eles levam o RM. Para usar o seu RM:
 ```bash
 export RM=rm123456                 # seu RM
-export LOCATION=canadacentral          # use uma região permitida pela policy da sua assinatura (az policy assignment list)
+export LOCATION=canadacentral      # a Azure for Students da FIAP só libera 5 regiões (eastus2 sem capacidade p/ SQL)
 export SQL_ADMIN_PASSWORD='<senha forte>'   # maiúscula, minúscula, número e símbolo
 ```
 > A senha **não** está em nenhum arquivo do repositório. Ela vai direto para as App Settings do Web App.
@@ -156,7 +158,7 @@ Aguarde de 1 a 2 minutos e abra `https://app-dimcloud-<RM>.azurewebsites.net`.
 3. **Transações → + Nova transação** → escolha o correntista, o tipo e o valor (INSERT em `TB_TRANSACAO`)
 4. **Editar** (UPDATE) · **Excluir** (DELETE)
 
-Depois de **cada** operação, confira no banco (Query editor ou sqlcmd) com `scripts/consultas.sql`:
+Depois de **cada** operação, confira no banco com `./scripts/consultar.sh correntistas | transacoes | saldo | tudo` (ou cole `scripts/consultas.sql` no Query editor):
 ```sql
 SELECT * FROM dbo.TB_CORRENTISTA;
 SELECT * FROM dbo.TB_TRANSACAO;
@@ -168,6 +170,8 @@ SELECT * FROM dbo.TB_TRANSACAO;
 ```
 
 ### 5.8 Monitoramento com o Application Insights
+Pelo CLI: `./scripts/06-monitoramento.sh` lista as requisições, os comandos SQL (dependências) e as métricas do banco.
+
 Portal → **appi-dimcloud**:
 - **Live Metrics:** requisições em tempo real enquanto usa o app
 - **Application Map:** `dimcloud-webapp` → dependência **SQL dimclouddb**

@@ -18,7 +18,7 @@
     <description>Web App DimDim (Correntistas e Transações) - Java + Azure SQL + Application Insights</description>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version> <!-- bytecode 17: compila no JDK 17 ou 21 (Cloud Shell) e roda no Java 21 do App Service -->
         <maven.compiler.release>21</maven.compiler.release>
     </properties>
 

@@ -76,7 +76,7 @@ az webapp config appsettings set \
              SPRING_DATASOURCE_PASSWORD="$SQL_ADMIN_PASSWORD" \
              APPLICATIONINSIGHTS_CONNECTION_STRING="$AI_CONN" \
              APPLICATIONINSIGHTS_ROLE_NAME="dimcloud-webapp" \
-             WEBSITES_PORT=8080 -o none
+             WEBSITES_CONTAINER_START_TIME_LIMIT=600 -o none   # Java no B1 leva ~3-4 min no 1º start
 
 az webapp config set --name "$WEBAPP" --resource-group "$RG" --always-on true -o none
 az webapp update --name "$WEBAPP" --resource-group "$RG" --https-only true -o none
